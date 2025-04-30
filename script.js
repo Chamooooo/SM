@@ -32,7 +32,7 @@ function spin() {
     const apuesta = parseInt(betInput.value);
 
     if (credits < apuesta) {
-        alert("¡No tienes suficientes créditos para apostar !");
+        alert("¡No tienes suficientes créditos para apostar!");
         return;
     }
 
