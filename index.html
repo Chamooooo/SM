@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Máquina Tragaperras</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Maquina Tragaperras</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Vinculamos el CSS -->
+    <link rel="icon" href="img/sm.ico"> <!-- Icono de la página -->
 </head>
 <body>
 
-    <h1>Máquina Tragaperras</h1>
-    
+    <h1>Maquina Tragaperras</h1>
+
     <!-- Contador de créditos -->
     <div id="credits">Créditos: 10</div>
 
@@ -19,14 +20,16 @@
         <div id="slot2" class="slot">🍋</div>
         <div id="slot3" class="slot">🍊</div>
     </div>
-    
-    <!-- Botón de girar -->
-    <button onclick="spin()">Girar</button>
-    
-    <!-- Resultado y efectos -->
-    <div id="result"></div>
-    <div id="celebration"></div>
 
-    <script src="script.js"></script>
+    <!-- Botón para girar las ruedas -->
+    <button onclick="spin()">¡Girar!</button>
+
+    <!-- Resultado del juego -->
+    <div id="result"></div>
+
+    <!-- Elemento para mostrar el efecto de celebración -->
+    <div id="celebration">🎉 ¡Ganaste! 🎉</div>
+
+    <script src="script.js"></script> <!-- Vinculamos el JavaScript -->
 </body>
 </html>

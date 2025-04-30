@@ -46,6 +46,7 @@ h1 {
     justify-content: center;
     align-items: center;
     position: relative;
+    animation: neonEffect 1s infinite alternate; /* Mantener la animación de neón */
 }
 
 /* Animación de giro realista */
@@ -114,4 +115,10 @@ button:disabled {
         transform: scale(1);
         opacity: 0;
     }
+}
+
+@keyframes neonEffect {
+    0% { text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
+    50% { text-shadow: 0 0 5px #fff, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; }
+    100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
 }

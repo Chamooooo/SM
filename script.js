@@ -11,6 +11,11 @@ const winSound = new Audio("win.mp3");   // Asegúrate de tener el archivo de so
 // Tiempo de cooldown del botón en milisegundos (ej. 3 segundos)
 const cooldownTime = 3000;
 
+// Función para actualizar los créditos en pantalla
+function updateCredits() {
+    document.getElementById("credits").innerText = "Créditos: " + credits;
+}
+
 // Función para girar las ruedas
 function spin() {
     if (credits <= 0) {
@@ -20,7 +25,7 @@ function spin() {
 
     // Reducir créditos
     credits--;
-    document.getElementById("credits").innerText = "Créditos: " + credits;
+    updateCredits();
 
     // Deshabilitar el botón durante el cooldown
     const button = document.querySelector("button");
@@ -34,15 +39,15 @@ function spin() {
     const slot2 = document.getElementById("slot2");
     const slot3 = document.getElementById("slot3");
 
-    // Eliminar animación actual
+    // Eliminar animación de giro anterior
     slot1.style.animation = "none";
     slot2.style.animation = "none";
     slot3.style.animation = "none";
 
     // Forzar reflow para reiniciar la animación
-    void slot1.offsetWidth; // Forzar reflow
-    void slot2.offsetWidth; // Forzar reflow
-    void slot3.offsetWidth; // Forzar reflow
+    void slot1.offsetWidth;
+    void slot2.offsetWidth;
+    void slot3.offsetWidth;
 
     // Aplicar la animación de giro
     slot1.style.animation = "spinAnimation 3s ease-out";
@@ -51,30 +56,27 @@ function spin() {
 
     // Detener las animaciones después de 3 segundos y mostrar el resultado
     setTimeout(() => {
-        // Seleccionar los símbolos aleatorios para las ruedas
         const result1 = randomSymbol();
         const result2 = randomSymbol();
         const result3 = randomSymbol();
 
-        // Establecer el resultado en las ruedas
         slot1.innerText = result1;
         slot2.innerText = result2;
         slot3.innerText = result3;
 
-        // Verificar si hay una victoria
+        const resultText = document.getElementById("result");
+
         if (result1 === result2 && result2 === result3) {
-            // Ganar
-            credits += 5;  // Puedes ajustar el número de créditos ganados
-            winSound.play();  // Sonido de ganar
-            document.getElementById("result").innerText = "¡Has ganado!";
+            const prize = getPrize(result1);
+            credits += prize;
+            updateCredits(); // ← Aquí actualizamos los créditos inmediatamente
+            winSound.play();
+            resultText.innerText = `¡Has ganado ${prize} créditos!`;
             document.getElementById("celebration").style.display = "block";
 
-            // Efecto de celebración
             setTimeout(() => {
                 document.getElementById("celebration").style.display = "none";
             }, 2000);
-        } else {
-            document.getElementById("result").innerText = "Inténtalo de nuevo.";
         }
 
         // Habilitar el botón nuevamente después del cooldown
@@ -82,10 +84,22 @@ function spin() {
             button.disabled = false;
         }, cooldownTime);
 
-    }, 3000); // Espera 3 segundos para terminar el giro
+    }, 3000);
 }
 
 // Función para generar un símbolo aleatorio
 function randomSymbol() {
     return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
+// Función para calcular el premio según el símbolo
+function getPrize(symbol) {
+    switch (symbol) {
+        case "🍒": return 5;
+        case "🍋": return 10;
+        case "🍊": return 15;
+        case "🍇": return 20;
+        case "7️⃣": return 50;
+        default: return 0;
+    }
 }
