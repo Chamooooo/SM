@@ -1,0 +1,117 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Título */
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+/* Contador de créditos */
+#credits {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* Contenedor de las ruedas */
+.slots {
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para cada rueda */
+.slot {
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Animación de giro realista */
+@keyframes spinAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(540deg); /* Acelera */
+    }
+    50% {
+        transform: rotate(1080deg); /* Gira más rápido */
+    }
+    75% {
+        transform: rotate(1620deg); /* Giro lento hacia el final */
+    }
+    100% {
+        transform: rotate(2160deg); /* Detiene el giro con un toque final */
+    }
+}
+
+/* Botón */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Estilo para el resultado */
+#result {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Efecto de celebración */
+#celebration {
+    display: none;
+    font-size: 50px;
+    color: #FFD700;
+    animation: explode 1s ease-out;
+}
+
+/* Animación de confeti */
+@keyframes explode {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
