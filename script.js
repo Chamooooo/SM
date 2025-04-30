@@ -23,6 +23,8 @@ function spin() {
         return;
     }
 
+    document.getElementById("result").innerText = "";
+
     // Reducir créditos
     credits--;
     updateCredits();
@@ -102,4 +104,18 @@ function getPrize(symbol) {
         case "7️⃣": return 50;
         default: return 0;
     }
+}
+
+function addCredits() {
+    credits += 5;
+    updateCredits();
+    document.getElementById("result").innerText = "Has añadido 5 créditos.";
+}
+
+
+function updateCredits() {
+    document.getElementById("credits").innerText = "Créditos: " + credits;
+
+    const addBtn = document.getElementById("addCreditsBtn");
+    addBtn.style.display = credits <= 0 ? "inline-block" : "none";
 }
