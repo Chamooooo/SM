@@ -5,8 +5,8 @@ const symbols = ["🍒", "🍋", "🍊", "🍇", "7️⃣"];
 let credits = 10;
 
 // Sonidos de efectos
-const spinSound = new Audio("spin.mp3"); // Asegúrate de tener el archivo de sonido
-const winSound = new Audio("win.mp3");   // Asegúrate de tener el archivo de sonido
+const spinSound = new Audio("sonidos/spin.mp3"); // Asegúrate de tener el archivo de sonido
+const winSound = new Audio("sonidos/win.mp3");   // Asegúrate de tener el archivo de sonido
 
 // Tiempo de cooldown del botón en milisegundos (ej. 3 segundos)
 const cooldownTime = 3000;
