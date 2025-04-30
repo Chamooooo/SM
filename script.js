@@ -5,58 +5,58 @@ const symbols = ["🍒", "🍋", "🍊", "🍇", "7️⃣"];
 let credits = 10;
 
 // Sonidos de efectos
-const spinSound = new Audio("sonidos/spin.mp3"); // Asegúrate de tener el archivo de sonido
-const winSound = new Audio("sonidos/win.mp3");   // Asegúrate de tener el archivo de sonido
+const spinSound = new Audio("sonidos/spin.mp3");
+const winSound = new Audio("sonidos/win.mp3");
 
-// Tiempo de cooldown del botón en milisegundos (ej. 3 segundos)
+// Cooldown
 const cooldownTime = 3000;
 
-// Función para actualizar los créditos en pantalla
+// Referencias a elementos
+const betInput = document.getElementById("bet");
+const betValue = document.getElementById("betValue");
+
+// Actualizar visualmente la apuesta seleccionada
+betInput.addEventListener("input", () => {
+    betValue.textContent = betInput.value;
+});
+
+// Actualizar créditos en pantalla
 function updateCredits() {
     document.getElementById("credits").innerText = "Créditos: " + credits;
+    const addBtn = document.getElementById("addCreditsBtn");
+    addBtn.style.display = credits <= 0 ? "inline-block" : "none";
 }
 
 // Función para girar las ruedas
 function spin() {
-    if (credits <= 0) {
-        alert("¡No tienes suficientes créditos!");
+    const apuesta = parseInt(betInput.value);
+
+    if (credits < apuesta) {
+        alert("¡No tienes suficientes créditos para apostar !");
         return;
     }
 
     document.getElementById("result").innerText = "";
 
-    // Reducir créditos
-    credits--;
+    // Reducir créditos por la apuesta
+    credits -= apuesta;
     updateCredits();
 
-    // Deshabilitar el botón durante el cooldown
     const button = document.querySelector("button");
     button.disabled = true;
-
-    // Reproducir sonido de giro
     spinSound.play();
 
-    // Establecer animación de giro y eliminarla después para reiniciar
     const slot1 = document.getElementById("slot1");
     const slot2 = document.getElementById("slot2");
     const slot3 = document.getElementById("slot3");
 
-    // Eliminar animación de giro anterior
-    slot1.style.animation = "none";
-    slot2.style.animation = "none";
-    slot3.style.animation = "none";
+    // Reiniciar animaciones
+    [slot1, slot2, slot3].forEach(slot => {
+        slot.style.animation = "none";
+        void slot.offsetWidth;
+        slot.style.animation = "spinAnimation 3s ease-out";
+    });
 
-    // Forzar reflow para reiniciar la animación
-    void slot1.offsetWidth;
-    void slot2.offsetWidth;
-    void slot3.offsetWidth;
-
-    // Aplicar la animación de giro
-    slot1.style.animation = "spinAnimation 3s ease-out";
-    slot2.style.animation = "spinAnimation 3s ease-out";
-    slot3.style.animation = "spinAnimation 3s ease-out";
-
-    // Detener las animaciones después de 3 segundos y mostrar el resultado
     setTimeout(() => {
         const result1 = randomSymbol();
         const result2 = randomSymbol();
@@ -69,9 +69,9 @@ function spin() {
         const resultText = document.getElementById("result");
 
         if (result1 === result2 && result2 === result3) {
-            const prize = getPrize(result1);
+            const prize = getPrize(result1) * apuesta;
             credits += prize;
-            updateCredits(); // ← Aquí actualizamos los créditos inmediatamente
+            updateCredits();
             winSound.play();
             resultText.innerText = `¡Has ganado ${prize} créditos!`;
             document.getElementById("celebration").style.display = "block";
@@ -81,7 +81,6 @@ function spin() {
             }, 2000);
         }
 
-        // Habilitar el botón nuevamente después del cooldown
         setTimeout(() => {
             button.disabled = false;
         }, cooldownTime);
@@ -89,12 +88,11 @@ function spin() {
     }, 3000);
 }
 
-// Función para generar un símbolo aleatorio
+// Funciones auxiliares
 function randomSymbol() {
     return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
-// Función para calcular el premio según el símbolo
 function getPrize(symbol) {
     switch (symbol) {
         case "🍒": return 5;
@@ -111,7 +109,6 @@ function addCredits() {
     updateCredits();
     document.getElementById("result").innerText = "Has añadido 5 créditos.";
 }
-
 
 function updateCredits() {
     document.getElementById("credits").innerText = "Créditos: " + credits;
